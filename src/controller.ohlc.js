@@ -2,10 +2,10 @@
 
 import {Chart} from 'chart.js';
 import {merge} from 'chart.js/helpers';
-import FinancialController from './controller.financial';
-import OhlcElement from './element.ohlc';
+import {FinancialController} from './controller.financial';
+import {OhlcElement} from './element.ohlc';
 
-class OhlcController extends FinancialController {
+export class OhlcController extends FinancialController {
 
 	updateElements(elements, start, count, mode) {
 		const me = this;
@@ -45,5 +45,3 @@ OhlcController.defaults = merge({
 		categoryPercentage: 1.0
 	}
 }, Chart.defaults.financial);
-
-export default OhlcController;

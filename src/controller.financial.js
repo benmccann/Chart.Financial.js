@@ -27,7 +27,7 @@ function computeMinSampleSize(scale, pixels) {
 /**
  * This class is based off controller.bar.js from the upstream Chart.js library
  */
-class FinancialController extends BarController {
+export class FinancialController extends BarController {
 
 	getLabelAndValue(index) {
 		const me = this;
@@ -238,5 +238,3 @@ FinancialController.overrides = {
 		}
 	}
 };
-
-export default FinancialController;

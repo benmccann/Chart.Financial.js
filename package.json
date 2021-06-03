@@ -1,24 +1,32 @@
 {
   "name": "chartjs-chart-financial",
   "description": "Chart.js module for charting financial securities",
-  "main": "src/index.js",
+  "main": "dist/chartjs-chart-financial.min.js",
+  "module": "dist/chartjs-chart-financial.esm.js",
+  "types": "types/index.d.ts",
   "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/chartjs/chartjs-chart-financial.git"
   },
+  "files": [
+    "dist/*.js",
+    "types/*.d.ts"
+  ],
   "scripts": {
     "build": "rollup -c && cp dist/chartjs-chart-financial.js docs/",
     "lint": "eslint docs/**/*.html src/**/*.js test/**/*.js",
-    "test": "npm run lint && cross-env NODE_ENV=test karma start --auto-watch --single-run --coverage --grep"
+    "lint-types": "eslint \"types/**/*.ts\" && tsc -p types/tests/",
+    "test": "npm run lint && cross-env NODE_ENV=test karma start --auto-watch --single-run --coverage --grep",
+    "test-types": "tsc -p types/tests/"
   },
   "peerDependencies": {
-    "chart.js": "^3.0.0"
+    "chart.js": "^3.2.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "^11.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
     "chart.js": "^3.2.0",
     "chartjs-adapter-luxon": "^1.0.0",
     "cross-env": "^7.0.3",
@@ -37,6 +45,7 @@
     "luxon": "^1.25.0",
     "rollup": "^2.35.1",
     "rollup-plugin-istanbul": "^3.0.0",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^4.2.4"
   }
 }

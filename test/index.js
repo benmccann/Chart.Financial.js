@@ -16,13 +16,8 @@ function releaseChart(chart) {
 	delete charts[chart.id];
 }
 
-function createMockContext() {
-	return new Context();
-}
-
 window.acquireChart = acquireChart;
 window.releaseChart = releaseChart;
-window.createMockContext = createMockContext;
 
 // some style initialization to limit differences between browsers across different plateforms.
 utils.injectCSS(

@@ -2,11 +2,11 @@
 
 import {Chart} from 'chart.js';
 import {merge, valueOrDefault} from 'chart.js/helpers';
-import FinancialElement from './element.financial';
+import {FinancialElement} from './element.financial';
 
 const globalOpts = Chart.defaults;
 
-class OhlcElement extends FinancialElement {
+export class OhlcElement extends FinancialElement {
 	draw(ctx) {
 		const me = this;
 
@@ -50,5 +50,3 @@ OhlcElement.defaults = merge({}, [globalOpts.elements.financial, {
 	armLength: null,
 	armLengthRatio: 0.8,
 }]);
-
-export default OhlcElement;

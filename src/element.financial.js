@@ -51,7 +51,7 @@ function inRange(bar, x, y, useFinalPosition) {
 		&& (skipY || y >= bounds.top && y <= bounds.bottom);
 }
 
-class FinancialElement extends Element {
+export class FinancialElement extends Element {
 
 	height() {
 		return this.base - this.y;
@@ -89,5 +89,3 @@ class FinancialElement extends Element {
 		};
 	}
 }
-
-export default FinancialElement;

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "moduleResolution": "node",
+    "alwaysStrict": true,
+    "noEmit": true
+  },
+  "include": [
+    "*.ts",
+    "../*.d.ts"
+  ]
+}

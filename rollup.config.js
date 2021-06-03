@@ -1,5 +1,3 @@
-const commonjs = require('@rollup/plugin-commonjs');
-const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const terser = require('rollup-plugin-terser').terser;
 const pkg = require('./package.json');
 
@@ -17,47 +15,48 @@ const banner = `/*!
 module.exports = [
 	{
 		input: 'src/index.js',
-		output: {
-			name: 'Chart.Financial',
-			file: `dist/${pkg.name}.js`,
-			banner: banner,
-			format: 'umd',
-			indent: false,
-			globals: {
-				'chart.js': 'Chart'
+		output: ['.js', '.min.js'].map((suffix) => {
+			const config = {
+				name: 'Chart.Financial',
+				file: `dist/${pkg.name}${suffix}`,
+				banner: banner,
+				format: 'umd',
+				indent: false,
+				plugins: [],
+				globals: {
+					'chart.js': 'Chart',
+					'chart.js/helpers': 'Chart.helpers',
+				},
+			};
+
+			if (suffix.match(/\.min\.js$/)) {
+				config.plugins.push(
+					terser({
+						output: {
+							comments: /^!/,
+						},
+					}),
+				);
 			}
-		},
-		plugins: [
-			commonjs({
-				include: 'node_modules/**',
-			}),
-			nodeResolve(),
-		],
+
+			return config;
+		}),
 		external: [
-			'chart.js'
-		]
+			'chart.js',
+			'chart.js/helpers',
+		],
 	},
 	{
-		input: 'src/index.js',
+		input: 'src/index.esm.js',
 		output: {
-			name: 'Chart.Financial',
-			file: `dist/${pkg.name}.min.js`,
+			file: pkg.module,
 			banner: banner,
-			format: 'umd',
+			format: 'esm',
 			indent: false,
-			globals: {
-				'chart.js': 'Chart'
-			}
 		},
-		plugins: [
-			commonjs({
-				include: 'node_modules/**',
-			}),
-			nodeResolve(),
-			terser({output: {comments: 'some'}})
-		],
 		external: [
-			'chart.js'
-		]
-	}
+			'chart.js',
+			'chart.js/helpers',
+		],
+	},
 ];

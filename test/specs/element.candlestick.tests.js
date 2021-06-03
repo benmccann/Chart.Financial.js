@@ -1,4 +1,4 @@
-import CandlestickElement from '../../src/element.candlestick';
+import {CandlestickElement} from '../../src/element.candlestick';
 
 describe('Candlestick element tests', function() {
 

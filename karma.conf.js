@@ -1,6 +1,4 @@
-const commonjs = require('@rollup/plugin-commonjs');
 const istanbul = require('rollup-plugin-istanbul');
-const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const builds = require('./rollup.config');
 
 module.exports = function(karma) {
@@ -11,7 +9,8 @@ module.exports = function(karma) {
 	// better with source mapping. In other cases, pick the minified build to
 	// make sure that the minification process (terser) doesn't break anything.
 	const regex = args.watch ? /chartjs-chart-financial\.js$/ : /chartjs-chart-financial\.min\.js$/;
-	const build = builds.filter(v => v.output.file.match(regex))[0];
+	const output = builds[0].output.filter((v) => v.file.match(regex))[0];
+	const build = Object.assign({}, builds[0], {output: output});
 	const inputs = args.inputs || 'test/specs/**/*.js';
 
 	karma.set({
@@ -49,17 +48,17 @@ module.exports = function(karma) {
 			'src/index.js': ['sources']
 		},
 		rollupPreprocessor: {
-			plugins: [
-				nodeResolve(),
-				commonjs()
-			],
 			external: [
-				'chart.js'
+				'chart.js',
+				'chart.js/helpers',
+				'chartjs-chart-financial',
 			],
 			output: {
 				format: 'umd',
 				globals: {
-					'chart.js': 'Chart'
+					'chart.js': 'Chart',
+					'chart.js/helpers': 'Chart.helpers',
+					'chartjs-chart-financial': 'Chart.Financial'
 				}
 			}
 		},
